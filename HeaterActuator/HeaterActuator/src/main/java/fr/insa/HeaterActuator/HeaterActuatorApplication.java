@@ -33,10 +33,9 @@ public class HeaterActuatorApplication {
 	
 	
 	//put on or off the heater according to a boolean parameter
-	
-	@GetMapping(value="/setActive/{bool}") 
-	public void setActive(@PathVariable boolean bool) {
-		this.active = bool;
+	@GetMapping("setActive/") 
+	public void setActive(boolean activate) {
+		this.active = activate;
 	}
 
 	

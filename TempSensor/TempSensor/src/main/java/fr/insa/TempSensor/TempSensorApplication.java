@@ -17,7 +17,7 @@ public class TempSensorApplication {
 
 	//**************************** Constructor ****************************
 	public TempSensorApplication() {
-		this.temp_value = 20; 
+		this.temp_value = 25; 
 	}
 
 	//**************************** Methodes ****************************
