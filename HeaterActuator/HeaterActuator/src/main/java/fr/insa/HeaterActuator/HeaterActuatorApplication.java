@@ -11,50 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RequestMapping("/HeaterActuator/")
 public class HeaterActuatorApplication {
-	//**************************** Variables ****************************
 	
-	private boolean active; // true if heater on, false if heater off
-	private double temperatureToReach; //value up to which the heater should heat up
-	
-	//**************************** Constructor ****************************
-	public HeaterActuatorApplication() {
-		this.active = false; // not active by default
-		this.temperatureToReach = 25; // temperature to reach = 25°C by default
-	}
-	
-	//**************************** Methodes ****************************
-	
-	//return if the heater is active or not
-	
-	@GetMapping("getActive/") 
-	public boolean getActive() {
-		return active;
-	}
-	
-	
-	//put on or off the heater according to a boolean parameter
-	@GetMapping("setActive/") 
-	public void setActive(boolean activate) {
-		this.active = activate;
-	}
-
-	
-	//return the temperature to be reach
-	
-	@GetMapping("getTemperatureToReach/") 
-	public double getTemperatureToReach() { 
-		return temperatureToReach;
-	}
-
-	
-	//set the temperature to be reach
-	
-	@GetMapping(value="/setTemperatureToReach/{temp}")
-	public void setTemperatureToReach(@PathVariable double temp) {
-		this.temperatureToReach = temp;
-	}
-	
-	//**************************** Main ****************************
+	//**************************** MAIN ****************************
 	public static void main(String[] args) {
 		SpringApplication.run(HeaterActuatorApplication.class, args);
 	}
