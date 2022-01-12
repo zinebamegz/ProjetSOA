@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/TempSensor/")
 
 public class TempSensorApplication {
-	// Variable
+	//**************************** Variable ****************************
 	private double temp_value;
 
-	// Constructor
+	//**************************** Constructor ****************************
 	public TempSensorApplication() {
 		this.temp_value = 20; 
 	}
 
-	//Methodes
+	//**************************** Methodes ****************************
 	
 	@GetMapping("getTemp/")
 	public double getTemp() {
@@ -32,7 +32,7 @@ public class TempSensorApplication {
 		this.temp_value = temperature;
 	}
 	
-	//Main
+	//**************************** Main ****************************
 	public static void main(String[] args) {
 		SpringApplication.run(TempSensorApplication.class, args);
 	}
