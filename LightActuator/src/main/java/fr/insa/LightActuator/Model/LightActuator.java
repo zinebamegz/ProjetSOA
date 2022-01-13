@@ -1,16 +1,20 @@
 package fr.insa.LightActuator.Model;
 
 public class LightActuator {
-	
-	//The state of the lights ( true = ON; false=OFF)
+
+	/*Variable for state of lights
+	 * True = ON 
+	 * False = OFF
+	*/
 	private boolean State; 
 	
+	/*Constructors*/
 	public LightActuator() {
 		this.State = false; // Turned off by default
 	}	
 	
-	public LightActuator(boolean etat) {
-		this.State = etat; 
+	public LightActuator(boolean state) {
+		this.State = state; 
 	}
 
 	public boolean getState() {
@@ -18,7 +22,7 @@ public class LightActuator {
 	}
 
 	public void setState(boolean state) {
-		State = state;
+		this.State = state;
 	}	
 	
 	
