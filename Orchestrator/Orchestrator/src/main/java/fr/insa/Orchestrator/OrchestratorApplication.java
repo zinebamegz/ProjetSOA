@@ -55,18 +55,19 @@ public class OrchestratorApplication {
 	} */
 	
 
-	//User Story 7: Ventilation Control
+	// ----------------User Story 7: Ventilation Control-----------------------
+
 	@GetMapping("/VentilationControl")
 	public void VentilationControl(){
 		//Initial values
 		int CO2_level = 100;
 		String CO2_unit = "ppm";
-		String url_setVentilation = VentilationURI + "/setVentilationON";
+		String url_setVentilation = VentilationURI + "/setVentilationState/true"; //changer
 
 		RestTemplate restTemplate = new RestTemplate();
 		
 		CO2_level = restTemplate.getForObject(CO2SensorURI + "/getCO2Value", int.class);
-		//CO2_unit = restTemplate.getForObject(CO2SensorURI + "/getCO2Unit", String.class);
+		CO2_unit = restTemplate.getForObject(CO2SensorURI + "/getCO2Unit", String.class);
 
 		if ((CO2_level > 50) & (CO2_unit == "ppm")) {
 			restTemplate.getForObject(url_setVentilation,void.class);	
