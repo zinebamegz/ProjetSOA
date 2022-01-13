@@ -2,7 +2,6 @@ package fr.insa.VentilationActuator.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fr.insa.VentilationActuator.Model.VentilationActuator;
@@ -13,14 +12,19 @@ public class VentilationActuatorResource{
     
     VentilationActuator ventilation = new VentilationActuator();
 
-    @GetMapping("/state")
-    public boolean state(){
-        return ventilation.getV();
+    @GetMapping("/getVentilationState")
+    public boolean getVentilationState(){
+        return ventilation.getVentilationState();
     }
 
-    @GetMapping("/set/{value}")
-    public void setVentilationState(@PathVariable boolean value){
-        ventilation.setV(value);
+    @GetMapping("/setVentilationON")
+    public void setVentilationStateON(){
+        ventilation.setVentilationState(true);
+    }
+
+    @GetMapping("/setVentilationOFF")
+    public void setVentilationStateOFF(){
+        ventilation.setVentilationState(false);
     }
 
 }

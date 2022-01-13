@@ -11,11 +11,11 @@ public class VentilationActuator {
         this.state = val;
     }
 
-    public boolean getV(){
+    public boolean getVentilationState(){
         return this.state;
     }
 
-    public void setV(boolean val){
+    public void setVentilationState(boolean val){
         this.state = val;
     }
 }
