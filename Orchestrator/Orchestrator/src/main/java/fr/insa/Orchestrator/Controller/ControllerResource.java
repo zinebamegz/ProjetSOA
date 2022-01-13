@@ -19,7 +19,7 @@ public class ControllerResource {
 	private double max_temp = 25.0; //maximal temperature for the room
 	
 	private String CO2SensorURI = "http://localhost:8083/CO2Sensor/";
-	private String VentilationURI = "http://localhost:8094/VentilationActuator/";
+	private String VentilationURL = "http://localhost:8094/VentilationActuator/";
 	
 	private String LightActuatorURI="http://localhost:8092/LightActuator/";
 	private String MovSensorURI ="http://localhost:8081/MovSensor/"; 
@@ -48,10 +48,33 @@ public class ControllerResource {
 	}
 	
 	
-	
+	//User Story 7: Ventilation Control
+	@GetMapping("/VentilationControl")
+	public String VentilationControl(){
+		String VentilationON_URL = VentilationURL + "/setVentilationState/true";
+		String VentilationOFF_URL = VentilationURL + "/setVentilationState/false";
+
+		String message = "";
+
+		RestTemplate restTemplate = new RestTemplate();
+		
+		int CO2_level = restTemplate.getForObject(CO2SensorURI + "/getCO2Value", int.class);
+		String CO2_unit = restTemplate.getForObject(CO2SensorURI + "/getCO2Unit", String.class);
+
+		if ((CO2_level > 50) & (CO2_unit == "ppm")) {
+			restTemplate.getForObject(VentilationON_URL,void.class);	
+			message = "Ventilation ON. CO2 still too high";
+		}
+		else{
+			restTemplate.getForObject(VentilationOFF_URL, int.class);
+			message = "Ventilation OFF. CO2 level okay.";
+		}
+		return message;
+	}
+
 	
 	//2nd user story: heating system control
-/* 	@GetMapping("HeatingControl/")
+ 	@GetMapping("HeatingControl/")
 	public void HeatingControl() {
 		
 		//retrieve temperature value from TempSensor
@@ -75,29 +98,7 @@ public class ControllerResource {
 		//}
 		
 		//return this.temp; 
-	} */
+	} 
 	
-
-	//User Story 7: Ventilation Control
-	@GetMapping("/VentilationControl")
-	public void VentilationControl(){
-		//Initial values
-		int CO2_level = 100;
-		String CO2_unit = "ppm";
-		String url_setVentilation = VentilationURI + "/setVentilationON";
-
-		RestTemplate restTemplate = new RestTemplate();
-		
-		CO2_level = restTemplate.getForObject(CO2SensorURI + "/getCO2Value", int.class);
-		//CO2_unit = restTemplate.getForObject(CO2SensorURI + "/getCO2Unit", String.class);
-
-		if ((CO2_level > 50) & (CO2_unit == "ppm")) {
-			restTemplate.getForObject(url_setVentilation,void.class);	
-		}
-		else{
-			//CO2 value is fine, no ventilation needed.
-		}
-	}
-
 		
 }
