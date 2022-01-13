@@ -17,14 +17,10 @@ public class VentilationActuatorResource{
         return ventilation.getVentilationState();
     }
 
-    @GetMapping("/setVentilationON")
-    public void setVentilationStateON(){
-        ventilation.setVentilationState(true);
+    @GetMapping("/setVentilationState")
+    public void setVentilationState(boolean activate){
+        ventilation.setVentilationState(activate);
     }
 
-    @GetMapping("/setVentilationOFF")
-    public void setVentilationStateOFF(){
-        ventilation.setVentilationState(false);
-    }
-
+    //set air quality to reach
 }
