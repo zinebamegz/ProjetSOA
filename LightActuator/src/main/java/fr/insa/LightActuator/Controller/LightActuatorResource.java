@@ -11,24 +11,20 @@ import fr.insa.LightActuator.Model.LightActuator;
 @RequestMapping("/LightActuator/")
 public class LightActuatorResource {
 	
+	LightActuator lights = new LightActuator();
+	
 	/*Return the state of the lights if ON true else false */ 
 		@GetMapping("/isON")
 		public boolean isON() {
-			LightActuator lights = new LightActuator(); 
 			return lights.getState();
 		}
 
 		
-		/*Turn ON or OFF the lights*/
+		/*Turn ON or OFF the lights and return what state it's in*/
 		@GetMapping("/setLight/{etat}")
-		public LightActuator  setLight(@PathVariable boolean etat) {		
-			LightActuator lights = new LightActuator(etat); 
-			
-			if (Boolean.TRUE.equals(etat)) { 
-				return lights;
-			}else {
-				return lights;
-			}
+		public boolean  setLight(@PathVariable boolean etat) {
+			lights.setState(etat);
+				return lights.getState();
 		}
-		
+	
 }
