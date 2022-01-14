@@ -35,10 +35,12 @@ public class OrchestratorResource {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		if (restTemplate.getForObject(MotionURL,boolean.class)) {
+			//Change state of lights to true 
 			restTemplate.getForObject(LightsOnURL,boolean.class);
 			return message="Lights ON - Movement detected"; 
 			
 		}else {
+			//Change stet of lights to false
 			restTemplate.getForObject(LightsOffURL,boolean.class);
 			return message="Lights OFF - Movement not detected"; 
 		}
@@ -51,7 +53,7 @@ public class OrchestratorResource {
 			
 			String HeaterON_URL = HeaterActuatorURI + "putHeaterOnOff/true";
 			String HeaterOFF_URL = HeaterActuatorURI + "putHeaterOnOff/false";
-			String TempToReach_URL = HeaterActuatorURI + "setTemperatureToReach/25.0"; //to change the temperature to reach by the heater, change the double at the end
+			//String TempToReach_URL = HeaterActuatorURI + "setTemperatureToReach/25.0"; //to change the temperature to reach by the heater, change the double at the end
 			
 			String TempValue_URL = TempSensorURI + "getTemp/";
 			
@@ -68,16 +70,16 @@ public class OrchestratorResource {
 				//if temperature > max_temp => heater OFF
 				
 				restTemplate.getForObject(HeaterOFF_URL,void.class);
-				return message = "Temperature in the room = " + TempValue + " °C > " + max_temp + " °C : too high. Heater turned off." ; 
+				return message = "Temperature in the room = " + TempValue + " °C > " + max_temp + " °C : too high - Heater turned OFF." ; 
 				
 			}else if(TempValue < min_temp){
 				//if temperature < min_temp => heater ON
 				
 				restTemplate.getForObject(HeaterON_URL,void.class);
-				return message = "Temperature in the room = " + TempValue + " °C < " + min_temp + " °C : too low. Heater turned on."; 
+				return message = "Temperature in the room = " + TempValue + " °C < " + min_temp + " °C : too low - Heater turned ON."; 
 				
 			} else {
-				return message = "Temperature in the room = " + TempValue + " °C : between " + min_temp + " and " + max_temp + " °C => OK"; 
+				return message = "Temperature in the room = " + TempValue + " °C : between " + min_temp + " and " + max_temp + " °C - No changes in temperature to be made"; 
 			}
 		}
 	 	
@@ -100,11 +102,11 @@ public class OrchestratorResource {
 
 		if ((CO2_level>20) && (CO2_unit.equals("PPM"))) {
 			restTemplate.getForObject(VentilationON_URL,boolean.class);
-			return message = "Ventilation ON. CO2 still too high";
+			return message = "Ventilation ON - CO2 is too high";
 			
 		}else{
 			restTemplate.getForObject(VentilationOFF_URL,boolean.class);
-			return message = "Ventilation OFF. CO2 level okay.";
+			return message = "Ventilation OFF - CO2 level is good";
 		}
 	}
 

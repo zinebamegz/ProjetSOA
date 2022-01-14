@@ -22,7 +22,9 @@ public class TempSensorRessource {
 	}
 	
 	@GetMapping("setTemp/{temperature}")
-	public void setTemp(@PathVariable double temperature) {
+	public double setTemp(@PathVariable double temperature) {
 		TempSens.setTemp_value(temperature);
+	return TempSens.getTemp_value();
 	}
+	
 }
