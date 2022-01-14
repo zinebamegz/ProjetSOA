@@ -24,9 +24,9 @@ public class HeaterActuatorRessource {
 	
 	
 	//put on or off the heater according to a boolean parameter
-	@GetMapping("putHeaterOnOff/") 
-	public void putHeaterOnOff(boolean activate) {
-		heater.setActive(activate);
+	@GetMapping(value="putHeaterOnOff/{OnOff}") 
+	public void putHeaterOnOff(@PathVariable boolean OnOff) {
+		heater.setActive(OnOff);
 	}
 
 	
@@ -38,7 +38,6 @@ public class HeaterActuatorRessource {
 
 	
 	//set the temperature to be reach
-	
 	@GetMapping(value="/setTemperatureToReach/{temp}")
 	public void setTemperatureToReach(@PathVariable double temp) {
 		heater.setTemperatureToReach(temp);
