@@ -21,7 +21,7 @@ public class LightActuatorResource {
 		
 		/*Turn ON or OFF the lights and return what state it's in*/
 		@GetMapping("setLight/{state}")
-		public boolean  setLight(@PathVariable boolean state) {
+		public boolean setLight(@PathVariable boolean state) {
 			lights.setState(state);
 				return lights.getState();
 		}

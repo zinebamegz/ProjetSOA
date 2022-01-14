@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/Orchestrator")
-public class ControllerResource {
+public class OrchestratorResource {
 	//***************************** VARIABLES ***************************
 	
 	private String TempSensorURI = "http://localhost:8082/TempSensor/";
@@ -51,30 +51,32 @@ public class ControllerResource {
 	//User Story 7: Ventilation Control
 	@GetMapping("/VentilationControl")
 	public String VentilationControl(){
-		String VentilationON_URL = VentilationURL + "/setVentilationState/true";
-		String VentilationOFF_URL = VentilationURL + "/setVentilationState/false";
+		String VentilationON_URL = VentilationURL + "setVentilationState/true";
+		String VentilationOFF_URL = VentilationURL + "setVentilationState/false";
+		
+		String CO2Value_URL = CO2SensorURI + "getCO2Value";
+		String CO2Unit_URL = CO2SensorURI + "getCO2Unit";
 
 		String message = "";
 
 		RestTemplate restTemplate = new RestTemplate();
 		
-		int CO2_level = restTemplate.getForObject(CO2SensorURI + "/getCO2Value", int.class);
-		String CO2_unit = restTemplate.getForObject(CO2SensorURI + "/getCO2Unit", String.class);
+		int CO2_level = restTemplate.getForObject(CO2Value_URL,int.class);
+		String CO2_unit = restTemplate.getForObject(CO2Unit_URL,String.class);
 
-		if ((CO2_level > 50) & (CO2_unit == "ppm")) {
-			restTemplate.getForObject(VentilationON_URL,void.class);	
-			message = "Ventilation ON. CO2 still too high";
+		if ((CO2_level>20) && (CO2_unit.equals("PPM"))) {
+			restTemplate.getForObject(VentilationON_URL,boolean.class);
+			return message = "Ventilation ON. CO2 still too high";
+			
+		}else{
+			restTemplate.getForObject(VentilationOFF_URL,boolean.class);
+			return message = "Ventilation OFF. CO2 level okay.";
 		}
-		else{
-			restTemplate.getForObject(VentilationOFF_URL, int.class);
-			message = "Ventilation OFF. CO2 level okay.";
-		}
-		return message;
 	}
 
 	
 	//2nd user story: heating system control
- 	@GetMapping("HeatingControl/")
+ 	@GetMapping("/HeatingControl/")
 	public void HeatingControl() {
 		
 		//retrieve temperature value from TempSensor

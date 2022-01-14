@@ -19,8 +19,10 @@ public class CO2SensorResource {
     }
 
     @GetMapping("/setCO2Value/{CO2Level}")
-    public void setCO2Level(@PathVariable int CO2Level){
+    public String setCO2Level(@PathVariable int CO2Level){
+    	String message ="CO2 level set to " + CO2Level +""+ CO2Sensor.getCO2Unit(); 
         CO2Sensor.setCO2Level(CO2Level);
+        return message; 
     }
 
     @GetMapping("/getCO2Unit")
@@ -29,8 +31,10 @@ public class CO2SensorResource {
     }
 
     @GetMapping("/setCO2Unit/{CO2Unit}")
-    public void setCO2Unit(@PathVariable String CO2Unit){
+    public String setCO2Unit(@PathVariable String CO2Unit){
+    	String message ="CO2 Unit set to " + CO2Unit; 
         CO2Sensor.setCO2Unit(CO2Unit);
+        return message; 
     }
 
 }

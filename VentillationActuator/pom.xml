@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fr.insa</groupId>
-	<artifactId>VentilationActuator</artifactId>
+	<artifactId>LightActuator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>VentilationActuator</name>
-	<description>Ventilation Actuator</description>
+	<name>LightActuator</name>
+	<description>Turn on and off the light in the room</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

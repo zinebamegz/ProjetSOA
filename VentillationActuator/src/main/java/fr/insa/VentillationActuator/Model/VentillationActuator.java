@@ -1,16 +1,16 @@
-package fr.insa.VentilationActuator.Model;
+package fr.insa.VentillationActuator.Model;
 
-public class VentilationActuator {
+public class VentillationActuator {
     private boolean active;
     //private int airQualityToReach = 20; //default
 
     //----------Constructors--------------
 
-    public VentilationActuator(){
+    public VentillationActuator(){
         this.active = false; //turned off by default
     }
 
-    public VentilationActuator(boolean val){
+    public VentillationActuator(boolean val){
         this.active = val;
     }
 

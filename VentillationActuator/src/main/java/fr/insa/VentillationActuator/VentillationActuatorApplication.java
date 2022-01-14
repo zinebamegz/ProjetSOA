@@ -1,13 +1,13 @@
-package fr.insa.VentilationActuator;
+package fr.insa.VentillationActuator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VentilationActuatorApplication {
+public class VentillationActuatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VentilationActuatorApplication.class, args);
+		SpringApplication.run(VentillationActuatorApplication.class, args);
 	}
 
 }
