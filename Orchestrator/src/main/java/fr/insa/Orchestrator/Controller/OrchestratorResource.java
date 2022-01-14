@@ -14,10 +14,7 @@ public class OrchestratorResource {
 	
 	private String TempSensorURI = "http://localhost:8082/TempSensor/";
 	private String HeaterActuatorURI = "http://localhost:8093/HeaterActuator/";
-	private double temp; //variable to stock value from temperature sensor
-	private double min_temp = 15.0; //minimal temperature for the room
-	private double max_temp = 25.0; //maximal temperature for the room
-	
+		
 	private String CO2SensorURI = "http://localhost:8083/CO2Sensor/";
 	private String VentilationURL = "http://localhost:8094/VentilationActuator/";
 	
@@ -48,6 +45,43 @@ public class OrchestratorResource {
 	}
 	
 	
+	//2nd user story: heating system control
+	 	@GetMapping("/HeatingControl")
+		public String HeatingControl() {
+			
+			String HeaterON_URL = HeaterActuatorURI + "putHeaterOnOff/true";
+			String HeaterOFF_URL = HeaterActuatorURI + "putHeaterOnOff/false";
+			String TempToReach_URL = HeaterActuatorURI + "setTemperatureToReach/25.0"; //to change the temperature to reach by the heater, change the double at the end
+			
+			String TempValue_URL = TempSensorURI + "getTemp/";
+			
+			double min_temp = 15.0; //minimal temperature for the room
+			double max_temp = 25.0; //maximal temperature for the room
+			String message ;
+
+			RestTemplate restTemplate = new RestTemplate();
+			
+			double TempValue = restTemplate.getForObject(TempValue_URL,double.class); // TempValue = the temperature in the room
+
+			
+			if (TempValue > max_temp) {
+				//if temperature > max_temp => heater OFF
+				
+				restTemplate.getForObject(HeaterOFF_URL,void.class);
+				return message = "Temperature in the room = " + TempValue + " °C > " + max_temp + " °C : too high. Heater turned off." ; 
+				
+			}else if(TempValue < min_temp){
+				//if temperature < min_temp => heater ON
+				
+				restTemplate.getForObject(HeaterON_URL,void.class);
+				return message = "Temperature in the room = " + TempValue + " °C < " + min_temp + " °C : too low. Heater turned on."; 
+				
+			} else {
+				return message = "Temperature in the room = " + TempValue + " °C : between " + min_temp + " and " + max_temp + " °C => OK"; 
+			}
+		}
+	 	
+	
 	//User Story 7: Ventilation Control
 	@GetMapping("/VentilationControl")
 	public String VentilationControl(){
@@ -75,32 +109,7 @@ public class OrchestratorResource {
 	}
 
 	
-	//2nd user story: heating system control
- 	@GetMapping("/HeatingControl/")
-	public void HeatingControl() {
-		
-		//retrieve temperature value from TempSensor
-		String url_getTemperature = TempSensorURI + "getTemp/";
-		RestTemplate restTemplate = new RestTemplate();
-		this.temp = restTemplate.getForObject(url_getTemperature,double.class);
-		
-		//if temperature < 15.0, put the heating on
-		if (this.temp < this.min_temp) {
-		
-			String url_setHeater = HeaterActuatorURI + "setActive/?activate=true";
-			restTemplate.getForObject(url_setHeater,boolean.class);
-						 
-		//TO DOOO : simulate the increasing temperature in the room!!!
-			
-		}
-		//TO DO!!
-		//if temperature >25.0, put the heating off
-		//else if(this.temp > this.max_temp) {
-			
-		//}
-		
-		//return this.temp; 
-	} 
+	
 	
 		
 }

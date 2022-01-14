@@ -38,7 +38,7 @@ public class HeaterActuatorRessource {
 
 	
 	//set the temperature to be reach
-	@GetMapping("/setTemperatureToReach/{temp}")
+	@GetMapping("setTemperatureToReach/{temp}")
 	public void setTemperatureToReach(@PathVariable double temp) {
 		heater.setTemperatureToReach(temp);
 	}
